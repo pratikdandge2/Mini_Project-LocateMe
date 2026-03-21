@@ -1,0 +1,50 @@
+.wrap {
+  padding: 0 0 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.muted {
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  padding: 2rem 1rem;
+}
+
+.loadMoreWrap {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.loadMoreBtn {
+  padding: 0.6rem 1.25rem;
+  border: var(--border);
+  background: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.loadMoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}

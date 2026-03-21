@@ -1,0 +1,225 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-body);
+}
+
+.backLink:hover {
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.cardWrap {
+  border: var(--border);
+  background: var(--white);
+}
+
+.article {
+  overflow: hidden;
+}
+
+.imageWrap {
+  position: relative;
+  max-height: 320px;
+  background: var(--bg-section);
+}
+
+.image {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+  border-bottom: var(--border);
+}
+
+.imagePlaceholder {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  border-bottom: var(--border);
+}
+
+.resolvedBanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: var(--badge-resolved);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.badgeLost {
+  color: var(--badge-lost);
+}
+
+.badgeFound {
+  color: var(--badge-found);
+}
+
+.badgeResolved {
+  color: var(--badge-resolved);
+}
+
+.reportedAt {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.5rem;
+}
+
+.location {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-body);
+  margin: 0 0 1rem;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin: 0 0 1rem;
+}
+
+.posterLabel {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.posterEmail {
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: var(--border);
+}
+
+.resolveBtn {
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--badge-found);
+  background: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.resolveBtn:hover:not(:disabled) {
+  background: var(--badge-found);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.unresolveBtn {
+  padding: 0.6rem 1rem;
+  border: 2px solid #d08700;
+  background: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #d08700;
+}
+
+.unresolveBtn:hover:not(:disabled) {
+  background: #d08700;
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.deleteBtn {
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--badge-lost);
+  background: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--badge-lost);
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background: var(--badge-lost);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.muted {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.backBtn {
+  padding: 0.6rem 1rem;
+  border: var(--border);
+  background: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.backBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}

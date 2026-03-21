@@ -1,0 +1,31 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+}
+
+.outline {
+  border: 3px solid rgba(26, 26, 26, 0.6);
+  background: transparent;
+}
+
+.orangeLight {
+  border: 3px solid rgba(249, 115, 22, 0.6);
+  background: rgba(249, 115, 22, 0.15);
+}
+
+.diamondOutline {
+  border: 3px solid rgba(26, 26, 26, 0.6);
+  background: transparent;
+}
+
+.diamondOrange {
+  border: 3px solid rgba(249, 115, 22, 0.6);
+  background: rgba(249, 115, 22, 0.15);
+}
