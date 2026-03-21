@@ -45,9 +45,9 @@
 }
 
 .preview {
-  width: 100%;
+  width: 100% !important;
   max-height: 240px;
-  object-fit: cover;
+  object-fit: cover !important;
   display: block;
 }
 
