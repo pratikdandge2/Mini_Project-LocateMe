@@ -1,2 +1,0 @@
-﻿b42d59b HEAD@{0}: reset: moving to HEAD~1
-642f04f HEAD@{1}: commit: feat: add initial base CSS styles for the client application.

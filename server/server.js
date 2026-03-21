@@ -10,6 +10,21 @@ import itemRoutes from "./routes/items.js";
 
 dotenv.config();
 
+const normalizeOrigin = (origin) => origin?.trim().replace(/\/+$/, "");
+const allowedOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map(normalizeOrigin)
+  .filter(Boolean);
+
+const corsOriginHandler = (origin, callback) => {
+  if (!origin) return callback(null, true);
+  const normalizedOrigin = normalizeOrigin(origin);
+  if (allowedOrigins.includes(normalizedOrigin)) {
+    return callback(null, true);
+  }
+  return callback(new Error("Not allowed by CORS"));
+};
+
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
@@ -17,10 +32,10 @@ const app = express();
 const httpServer = http.createServer(app);
 
 export const io = new Server(httpServer, {
-  cors: { origin: process.env.CLIENT_URL, methods: ["GET", "POST"] },
+  cors: { origin: corsOriginHandler, methods: ["GET", "POST"] },
 });
 
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors({ origin: corsOriginHandler }));
 app.use(express.json());
 
 mongoose
