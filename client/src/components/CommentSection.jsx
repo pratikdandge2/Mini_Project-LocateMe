@@ -44,8 +44,7 @@ export default function CommentSection({ itemId }) {
     if (!trimmed || sending) return;
     setSending(true);
     try {
-      const newComment = await postComment(itemId, trimmed);
-      setComments((prev) => [...prev, newComment]);
+      await postComment(itemId, trimmed);
       setText("");
       addToast('💬 Comment posted!', 'success');
     } finally {
