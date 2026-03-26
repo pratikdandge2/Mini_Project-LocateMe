@@ -7,6 +7,7 @@ import admin from "firebase-admin";
 import dotenv from "dotenv";
 import { initSocket } from "./socket/commentSocket.js";
 import itemRoutes from "./routes/items.js";
+import notificationRoutes from "./routes/notifications.js";
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ mongoose
   .then(() => console.log("MongoDB connected"));
 
 app.use("/api/items", itemRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 initSocket(io);
 

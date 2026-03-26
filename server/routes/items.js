@@ -1,6 +1,7 @@
 import express from "express";
 import Item from "../models/Item.js";
 import Comment from "../models/Comment.js";
+import Notification from "../models/Notification.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { io } from "../server.js";
 
@@ -99,6 +100,16 @@ router.get("/", async (req, res) => {
   });
 });
 
+// GET /api/items/mine — items posted by current user
+router.get('/mine', verifyToken, async (req, res) => {
+  const { status } = req.query; // 'active' | 'resolved' | '' (all)
+  const filter = { 'postedBy.uid': req.user.uid };
+  if (status === 'resolved') filter.resolved = true;
+  if (status === 'active')   filter.resolved = false;
+  const items = await Item.find(filter).sort({ createdAt: -1 });
+  res.json(items);
+});
+
 // GET single item
 router.get("/:id", async (req, res) => {
   const item = await Item.findById(req.params.id);
@@ -168,6 +179,27 @@ router.post("/:id/comments", verifyToken, async (req, res) => {
     },
   });
   io.to(req.params.id).emit("new_comment", comment);
+
+  // Notify item owner (only if commenter is not the owner)
+  try {
+    const item = await Item.findById(req.params.id).select('postedBy name');
+    if (item && item.postedBy?.uid && item.postedBy.uid !== req.user.uid) {
+      const notif = await Notification.create({
+        toUid:    item.postedBy.uid,
+        type:     'comment',
+        message:  `${req.user.name || req.user.email.split('@')[0]} commented on your item "${item.name}"`,
+        itemId:   item._id,
+        itemName: item.name,
+        fromName: req.user.name || req.user.email.split('@')[0],
+      });
+      // Send to owner's personal socket room
+      io.to(`user:${item.postedBy.uid}`).emit('notification', notif);
+    }
+  } catch (e) {
+    // Non-critical — don't fail the comment response
+    console.error('Notification error:', e.message);
+  }
+
   res.status(201).json(comment);
 });
 

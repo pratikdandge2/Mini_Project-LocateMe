@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import NotificationBell from "./NotificationBell";
 import styles from "./Navbar.module.css";
 
 function MapPinIcon() {
@@ -46,7 +47,7 @@ export default function Navbar({ onPostItem }) {
       <div className={`${styles.right} ${menuOpen ? styles.rightOpen : ""}`}>
         {user ? (
           <>
-            <Link to="/" className={styles.navLink}>
+            <Link to="/my-reports" className={styles.navLink}>
               MY REPORTS
             </Link>
             <div className={styles.userWrap}>
@@ -64,6 +65,7 @@ export default function Navbar({ onPostItem }) {
               )}
               <span className={styles.userName}>{displayName}</span>
             </div>
+            <NotificationBell />
             <button type="button" onClick={logout} className={styles.loginBtn}>
               LOGOUT
             </button>

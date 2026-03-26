@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import {
   fetchItem,
   resolveItem,
@@ -9,15 +10,18 @@ import {
 import { formatDistanceToNow } from "../utils/date";
 import Navbar from "../components/Navbar";
 import CommentSection from "../components/CommentSection";
+import Lightbox from "../components/Lightbox";
 import styles from "./ItemDetail.module.css";
 
 export default function ItemDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { addToast } = useToast();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [actioning, setActioning] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
 
   const isOwner = user && item?.postedBy?.uid === user.uid;
 
@@ -34,6 +38,7 @@ export default function ItemDetail() {
     try {
       const updated = await resolveItem(item._id);
       setItem(updated);
+      addToast(updated.resolved ? '✅ Item marked as resolved!' : '↩ Item marked as active.', 'success');
     } finally {
       setActioning(false);
     }
@@ -46,6 +51,7 @@ export default function ItemDetail() {
     try {
       await deleteItem(item._id);
       navigate("/");
+      addToast('🗑 Item deleted.', 'info');
     } finally {
       setActioning(false);
     }
@@ -102,7 +108,13 @@ export default function ItemDetail() {
         <article className={styles.article}>
           <div className={styles.imageWrap}>
             {item.imageUrl ? (
-              <img src={item.imageUrl} alt="" className={styles.image} />
+              <img
+                src={item.imageUrl}
+                alt=""
+                className={styles.image}
+                onClick={() => item.imageUrl && setLightbox(true)}
+                style={{ cursor: item.imageUrl ? 'zoom-in' : 'default' }}
+              />
             ) : (
               <div className={styles.imagePlaceholder}>No image</div>
             )}
@@ -152,6 +164,10 @@ export default function ItemDetail() {
         </article>
         <CommentSection itemId={id} />
         </div>
+
+        {lightbox && item.imageUrl && (
+          <Lightbox imageUrl={item.imageUrl} altText={item.name} onClose={() => setLightbox(false)} />
+        )}
       </main>
     </div>
   );

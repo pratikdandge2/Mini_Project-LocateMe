@@ -104,3 +104,36 @@ export const deleteComment = async (itemId, commentId) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const fetchNotifications = async () => {
+  const token = await getToken();
+  const res = await fetch(`${BASE_URL}/api/notifications`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};
+
+export const markNotificationsRead = async () => {
+  const token = await getToken();
+  await fetch(`${BASE_URL}/api/notifications/read-all`, {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const clearNotifications = async () => {
+  const token = await getToken();
+  await fetch(`${BASE_URL}/api/notifications/clear`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const fetchMyItems = async (status = '') => {
+  const token = await getToken();
+  const q = status ? `?status=${status}` : '';
+  const res = await fetch(`${BASE_URL}/api/items/mine${q}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};

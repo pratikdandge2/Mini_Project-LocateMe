@@ -2,11 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import { fetchComments, postComment, deleteComment } from "../services/api";
 import { useSocket } from "../hooks/useSocket";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { formatDistanceToNow } from "../utils/date";
 import styles from "./CommentSection.module.css";
 
 export default function CommentSection({ itemId }) {
   const { user } = useAuth();
+  const { addToast } = useToast();
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(true);
@@ -45,6 +47,7 @@ export default function CommentSection({ itemId }) {
       const newComment = await postComment(itemId, trimmed);
       setComments((prev) => [...prev, newComment]);
       setText("");
+      addToast('💬 Comment posted!', 'success');
     } finally {
       setSending(false);
     }
@@ -57,6 +60,7 @@ export default function CommentSection({ itemId }) {
       await deleteComment(itemId, commentId);
     } catch (err) {
       console.error("Failed to delete comment");
+      addToast('Failed to delete comment.', 'error');
     }
   };
 

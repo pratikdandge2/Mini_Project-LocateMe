@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchItems, fetchItemsPaged } from "../services/api";
 import ItemCard from "./ItemCard";
+import SkeletonCard from "./SkeletonCard";
 import styles from "./Feed.module.css";
 
 export default function Feed({
@@ -85,7 +86,9 @@ export default function Feed({
   if (loading && items.length === 0) {
     return (
       <div className={styles.wrap}>
-        <p className={styles.muted}>Loading…</p>
+        <div className={styles.grid}>
+          {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
       </div>
     );
   }

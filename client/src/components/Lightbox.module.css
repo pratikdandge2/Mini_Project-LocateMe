@@ -1,0 +1,36 @@
+.backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.inner { position: relative; max-width: 92vw; max-height: 92vh; }
+
+.closeBtn {
+  position: absolute; top: -40px; right: 0;
+  background: #F97316; color: #fff;
+  border: 2px solid #fff;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.85rem; letter-spacing: 0.05em;
+  padding: 6px 14px; cursor: pointer;
+}
+
+.img {
+  display: block;
+  max-width: 92vw; max-height: 80vh;
+  object-fit: contain;
+  border: 3px solid #fff;
+  box-shadow: 8px 8px 0 #F97316;
+}
+
+.caption {
+  background: #fff; color: #1a1a1a;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.9rem; letter-spacing: 0.05em;
+  padding: 10px 16px; margin: 0;
+  border: 2px solid #fff; border-top: 2px solid #1a1a1a;
+  text-transform: uppercase;
+}

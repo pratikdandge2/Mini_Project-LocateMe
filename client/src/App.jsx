@@ -3,6 +3,7 @@ import { useAuth } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ItemDetail from "./pages/ItemDetail";
+import MyReports from "./pages/MyReports";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -27,6 +28,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <ItemDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-reports"
+        element={
+          <ProtectedRoute>
+            <MyReports />
           </ProtectedRoute>
         }
       />
