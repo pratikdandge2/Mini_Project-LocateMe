@@ -1,93 +1,100 @@
 .card {
-  display: block;
-  background: var(--white);
-  border: var(--border);
-  overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: var(--border);
+    background: var(--white);
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* remove grey flash on iOS tap */
+    transition:
+        transform 0.12s,
+        box-shadow 0.12s;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow);
+.card:hover,
+.card:focus-within {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
 }
 
 .imageWrap {
-  position: relative;
-  height: 180px;
-  background: var(--bg-section);
+    position: relative;
+    height: 180px;
+    background: var(--bg-section);
 }
 
 .image {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  border-bottom: var(--border);
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-bottom: var(--border);
 }
 
 .imagePlaceholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  border-bottom: var(--border);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    border-bottom: var(--border);
 }
 
 .badge {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  padding: 0.25rem 0.6rem;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--white);
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
 }
 
 .badgeLost {
-  background: var(--badge-lost);
+    background: var(--badge-lost);
 }
 
 .badgeFound {
-  background: var(--badge-found);
+    background: var(--badge-found);
 }
 
 .badgeResolved {
-  background: var(--badge-resolved);
+    background: var(--badge-resolved);
 }
 
 .body {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .name {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--black);
-  margin: 0 0 0.25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--black);
+    margin: 0 0 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .location {
-  margin: 0 0 0.25rem;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  color: var(--text-muted);
+    margin: 0 0 0.25rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-muted);
 }
 
 .meta {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  color: var(--text-muted);
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }

@@ -1,74 +1,157 @@
 .wrap {
-  width: 100%;
+    width: 100%;
 }
 
-.uploadBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 140px;
-  border: 2px dashed #aaa;
-  background: var(--bg-section);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+/* Hidden file inputs — never visible, triggered by buttons */
+.hiddenInput {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
-.uploadBox:hover {
-  border-color: var(--orange);
-  background: var(--orange-light);
+/* Upload area — dashed box */
+.uploadArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 160px;
+    padding: 1.25rem 1rem;
+    border: 2px dashed #aaa;
+    background: var(--bg-section);
+    text-align: center;
 }
 
-.input {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
+.uploadIcon {
+    font-size: 2rem;
+    line-height: 1;
 }
 
-.icon {
-  font-size: 2rem;
+.uploadLabel {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin: 0;
 }
 
-.label {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--text-body);
+.uploadHint {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem;
 }
 
+/* Two-button row */
+.btnRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Shared button base */
+.cameraBtn,
+.galleryBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    border: var(--border);
+    cursor: pointer;
+    transition:
+        transform 0.12s,
+        box-shadow 0.12s;
+    white-space: nowrap;
+}
+
+.cameraBtn {
+    background: var(--orange);
+    color: var(--white);
+}
+
+.galleryBtn {
+    background: var(--white);
+    color: var(--black);
+}
+
+.cameraBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+.galleryBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Make buttons full-width on very small screens */
+@media (max-width: 360px) {
+    .btnRow {
+        flex-direction: column;
+    }
+    .cameraBtn,
+    .galleryBtn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.btnIcon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* Preview state */
 .previewWrap {
-  position: relative;
-  overflow: hidden;
-  border: var(--border);
-  background: var(--bg-section);
+    position: relative;
+    overflow: hidden;
+    border: var(--border);
+    background: var(--bg-section);
 }
 
 .preview {
-  width: 100% !important;
-  max-height: 240px;
-  object-fit: cover !important;
-  display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    display: block;
 }
 
 .removeBtn {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  width: 36px;
-  height: 36px;
-  border: var(--border);
-  background: var(--white);
-  color: var(--black);
-  font-size: 1.25rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+    border: var(--border);
+    background: var(--white);
+    color: var(--black);
+    font-size: 1.25rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.12s;
 }
 
 .removeBtn:hover {
-  background: var(--badge-lost);
-  color: var(--white);
-  border-color: var(--black);
+    background: var(--badge-lost);
+    color: var(--white);
+}
+
+.changeHint {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 6px 0 0;
 }
