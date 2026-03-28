@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-/* Hidden file inputs — never visible, triggered by buttons */
+/* ── Shared hidden input ── */
 .hiddenInput {
     position: absolute;
     width: 0;
@@ -11,8 +11,28 @@
     pointer-events: none;
 }
 
-/* Upload area — dashed box */
-.uploadArea {
+/* ── DESKTOP: original dashed click-to-upload box ── */
+.uploadBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 140px;
+    border: 2px dashed #aaa;
+    background: var(--bg-section);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    padding: 1.25rem;
+}
+
+.uploadBox:hover {
+    border-color: var(--orange);
+    background: var(--orange-light);
+}
+
+/* ── MOBILE: two-button upload area ── */
+.mobileUploadArea {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,37 +45,15 @@
     text-align: center;
 }
 
-.uploadIcon {
-    font-size: 2rem;
-    line-height: 1;
-}
-
-.uploadLabel {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-    color: var(--black);
-    margin: 0;
-}
-
-.uploadHint {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin: 0 0 0.75rem;
-}
-
-/* Two-button row */
 .btnRow {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    margin-top: 0.5rem;
 }
 
-/* Shared button base */
 .cameraBtn,
 .galleryBtn {
     display: flex;
@@ -68,9 +66,7 @@
     letter-spacing: 0.05em;
     border: var(--border);
     cursor: pointer;
-    transition:
-        transform 0.12s,
-        box-shadow 0.12s;
+    transition: transform 0.12s, box-shadow 0.12s;
     white-space: nowrap;
 }
 
@@ -84,20 +80,17 @@
     color: var(--black);
 }
 
-.cameraBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
+.cameraBtn:hover,
 .galleryBtn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
 
-/* Make buttons full-width on very small screens */
 @media (max-width: 360px) {
     .btnRow {
         flex-direction: column;
     }
+
     .cameraBtn,
     .galleryBtn {
         width: 100%;
@@ -105,12 +98,29 @@
     }
 }
 
-.btnIcon {
-    font-size: 14px;
+/* ── Shared text styles ── */
+.icon {
+    font-size: 2rem;
     line-height: 1;
 }
 
-/* Preview state */
+.label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin: 0;
+}
+
+.hint {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ── Preview state ── */
 .previewWrap {
     position: relative;
     overflow: hidden;
@@ -139,7 +149,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     transition: background 0.12s;
 }
 
