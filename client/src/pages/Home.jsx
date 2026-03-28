@@ -89,11 +89,14 @@ export default function Home() {
           <div className={styles.heroWidget}>
             <span className={styles.heroWidgetBadge}>LIVE</span>
             <div className={styles.waveform}>
-              {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+              {[0.4, 1, 0.6, 1, 0.7, 0.9, 0.5].map((h, i) => (
                 <span
                   key={i}
                   className={styles.waveBar}
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  style={{
+                    animationDelay: `${i * 0.12}s`,
+                    "--bar-height": h,
+                  }}
                 />
               ))}
             </div>

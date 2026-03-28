@@ -66,27 +66,21 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  height: 44px;
 }
 
 .waveBar {
   display: block;
-  width: 6px;
-  height: 20px;
+  width: 5px;
   background: var(--orange);
-  border-radius: 999px;
-  animation: wavePulse 0.8s ease-in-out infinite alternate;
+  border-radius: 2px;
+  animation: wave 0.9s ease-in-out infinite alternate;
+  transform-origin: center;
 }
 
-@keyframes wavePulse {
-  from {
-    height: 10px;
-    opacity: 0.7;
-  }
-
-  to {
-    height: 32px;
-    opacity: 1;
-  }
+@keyframes wave {
+  from { height: calc(var(--bar-height, 0.5) * 14px); }
+  to   { height: calc(var(--bar-height, 0.5) * 44px); }
 }
 
 /* Title */

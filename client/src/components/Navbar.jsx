@@ -6,14 +6,8 @@ import styles from "./Navbar.module.css";
 
 function MapPinIcon() {
   return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2.5">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
@@ -25,6 +19,7 @@ export default function Navbar({ onPostItem }) {
   const { user, logout, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
+  const firstName = displayName.split(" ")[0].slice(0, 12);
   const photoURL = user?.photoURL;
 
   const handlePostItem = () => {
@@ -33,12 +28,15 @@ export default function Navbar({ onPostItem }) {
     else navigate("/", { state: { openReport: true } });
   };
 
+  const handleLogout = () => {
+    setMenuOpen(false);
+    logout();
+  };
+
   return (
     <nav className={styles.navbar}>
       <Link to="/" className={styles.logoWrap}>
-        <span className={styles.logoIcon}>
-          <MapPinIcon />
-        </span>
+        <span className={styles.logoIcon}><MapPinIcon /></span>
         <span className={styles.logoText}>LOCATEME</span>
       </Link>
 
@@ -49,9 +47,7 @@ export default function Navbar({ onPostItem }) {
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
       >
-        <span />
-        <span />
-        <span />
+        <span /><span /><span />
       </button>
 
       <div className={`${styles.right} ${menuOpen ? styles.rightOpen : ""}`}>
@@ -59,12 +55,13 @@ export default function Navbar({ onPostItem }) {
           <>
             <Link
               to="/my-reports"
-              className={styles.navLink}
+              className={styles.myReportsBtn}
               onClick={() => setMenuOpen(false)}
             >
               MY REPORTS
             </Link>
-            <div className={styles.userWrap}>
+
+            <div className={styles.userChip}>
               {photoURL ? (
                 <img
                   src={photoURL}
@@ -74,15 +71,23 @@ export default function Navbar({ onPostItem }) {
                 />
               ) : (
                 <span className={styles.avatarPlaceholder}>
-                  {displayName.slice(0, 1).toUpperCase()}
+                  {firstName.slice(0, 1).toUpperCase()}
                 </span>
               )}
-              <span className={styles.userName}>{displayName}</span>
+              <span className={styles.userName}>{firstName}</span>
+              <div className={styles.bellWrap}>
+                <NotificationBell />
+              </div>
             </div>
-            <NotificationBell />
-            <button type="button" onClick={logout} className={styles.loginBtn}>
-              LOGOUT
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className={styles.logoutBtn}
+            >
+              LOG OUT
             </button>
+
             <button
               type="button"
               onClick={handlePostItem}
@@ -92,11 +97,7 @@ export default function Navbar({ onPostItem }) {
             </button>
           </>
         ) : (
-          <button
-            type="button"
-            onClick={loginWithGoogle}
-            className={styles.ctaBtn}
-          >
+          <button type="button" onClick={loginWithGoogle} className={styles.ctaBtn}>
             LOGIN
           </button>
         )}

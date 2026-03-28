@@ -1,21 +1,17 @@
 .card {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    border: var(--border);
     background: var(--white);
-    overflow: hidden;
+    border: var(--border);
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent; /* remove grey flash on iOS tap */
-    transition:
-        transform 0.12s,
-        box-shadow 0.12s;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
 }
 
-.card:hover,
-.card:focus-within {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0 var(--black);
 }
 
 .imageWrap {
