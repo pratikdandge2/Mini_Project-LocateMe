@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ItemDetail from "./pages/ItemDetail";
 import MyReports from "./pages/MyReports";
+import Dashboard from "./pages/Dashboard";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -36,6 +37,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <MyReports />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
           </ProtectedRoute>
         }
       />

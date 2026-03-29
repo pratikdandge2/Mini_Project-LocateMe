@@ -61,6 +61,14 @@ export default function Navbar({ onPostItem }) {
               MY REPORTS
             </Link>
 
+            <Link
+              to="/dashboard"
+              className={styles.myReportsBtn}
+              onClick={() => setMenuOpen(false)}
+            >
+              📊 STATS
+            </Link>
+
             <div className={styles.userChip}>
               {photoURL ? (
                 <img
