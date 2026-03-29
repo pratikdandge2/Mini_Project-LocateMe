@@ -32,11 +32,11 @@ router.get("/", async (req, res) => {
   }
   if (location && location !== "all") filter.location = new RegExp(location, "i");
   if (search) {
-    filter.$or = [
-      { name: new RegExp(search, "i") },
-      { location: new RegExp(search, "i") },
-      { description: new RegExp(search, "i") },
-    ];
+    // Use MongoDB text index for fast full-text search.
+    // $text cannot be combined with $or on the same filter, so we use
+    // it standalone. The text index weights (name:10, location:5, desc:1)
+    // ensure the most relevant results rank first.
+    filter.$text = { $search: search };
   }
 
   const wantsMeta =

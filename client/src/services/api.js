@@ -137,3 +137,9 @@ export const fetchMyItems = async (status = '') => {
   });
   return res.json();
 };
+
+export const fetchAnalytics = async () => {
+  const res = await fetch(`${BASE_URL}/api/analytics/summary`);
+  return res.json();
+};
+

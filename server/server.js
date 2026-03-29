@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import { initSocket } from "./socket/commentSocket.js";
 import itemRoutes from "./routes/items.js";
 import notificationRoutes from "./routes/notifications.js";
+import analyticsRoutes from "./routes/analytics.js";
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ mongoose
 
 app.use("/api/items", itemRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 initSocket(io);
 
