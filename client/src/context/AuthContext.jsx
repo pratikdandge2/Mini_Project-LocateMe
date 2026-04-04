@@ -30,9 +30,17 @@ export const AuthProvider = ({ children }) => {
     return unsub;
   }, []);
 
+  // Derived — never stored in state so it always reflects the current env var
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL?.trim().toLowerCase();
+  const isAdmin = Boolean(
+    user?.email &&
+    adminEmail &&
+    user.email.trim().toLowerCase() === adminEmail
+  );
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, authError, loginWithGoogle, logout }}
+      value={{ user, loading, authError, loginWithGoogle, logout, isAdmin }}
     >
       {children}
     </AuthContext.Provider>

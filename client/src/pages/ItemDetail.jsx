@@ -18,14 +18,15 @@ import styles from "./ItemDetail.module.css";
 export default function ItemDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { addToast } = useToast();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [actioning, setActioning] = useState(false);
   const [lightbox, setLightbox] = useState(false);
 
-  const isOwner = user && item?.postedBy?.uid === user.uid;
+  const isOwner    = user && item?.postedBy?.uid === user.uid;
+  const canDelete  = isOwner || isAdmin;   // owner OR admin can delete
 
   useEffect(() => {
     fetchItem(id)
@@ -144,24 +145,34 @@ export default function ItemDetail() {
                 <span className={styles.posterEmail}>({item.postedBy.email})</span>
               )}
             </p>
-            {isOwner && (
+            {canDelete && (
               <div className={styles.actions}>
-                <button
-                  type="button"
-                  onClick={handleResolve}
-                  disabled={actioning}
-                  className={item.resolved ? styles.unresolveBtn : styles.resolveBtn}
-                >
-                  {item.resolved ? "↩ MARK AS UNRESOLVED" : "✅ MARK AS RESOLVED"}
-                </button>
+                {/* Resolve toggle — only the owner can resolve/unresolve */}
+                {isOwner && (
+                  <button
+                    type="button"
+                    onClick={handleResolve}
+                    disabled={actioning}
+                    className={item.resolved ? styles.unresolveBtn : styles.resolveBtn}
+                  >
+                    {item.resolved ? "↩ MARK AS UNRESOLVED" : "✅ MARK AS RESOLVED"}
+                  </button>
+                )}
+
+                {/* Delete — owner OR admin */}
                 <button
                   type="button"
                   onClick={handleDelete}
                   disabled={actioning}
                   className={styles.deleteBtn}
                 >
-                  🗑 DELETE
+                  🗑 {isAdmin && !isOwner ? "ADMIN DELETE" : "DELETE"}
                 </button>
+
+                {/* Admin badge — shown only when admin is viewing someone else's post */}
+                {isAdmin && !isOwner && (
+                  <span className={styles.adminBadge}>🛡️ ADMIN</span>
+                )}
               </div>
             )}
           </div>

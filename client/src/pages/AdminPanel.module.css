@@ -1,0 +1,253 @@
+.page { min-height: 100vh; background: var(--bg); }
+.main { max-width: 960px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.adminBadgeRow { margin-bottom: 8px; }
+
+.adminBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  border: var(--border);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+.sub {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.backBtn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  border: var(--border);
+  background: var(--white);
+  color: var(--black);
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, transform 0.12s;
+  flex-shrink: 0;
+}
+.backBtn:hover { background: var(--bg); transform: translateY(-1px); }
+
+/* ── Stat cards ── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.statCard {
+  background: var(--white);
+  border: var(--border);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.statValue {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.statLabel {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ── Filters ── */
+.filtersRow {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: flex-end;
+}
+.filterGroup { display: flex; flex-direction: column; gap: 6px; }
+.filterLabel {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.tabs { display: flex; }
+.tab {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  border: var(--border);
+  background: var(--white);
+  color: var(--black);
+  padding: 7px 16px;
+  cursor: pointer;
+  margin-right: -2px;
+  transition: background 0.1s;
+}
+.tab:hover { background: var(--bg); }
+.tabActive {
+  background: var(--orange);
+  color: var(--white);
+}
+
+/* ── List ── */
+.list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: var(--border);
+  padding: 14px;
+  transition: box-shadow 0.12s;
+}
+.row:hover { box-shadow: var(--shadow); }
+
+.thumb {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border: var(--border);
+  flex-shrink: 0;
+}
+.thumbPlaceholder {
+  width: 72px; height: 72px;
+  border: var(--border);
+  background: #f5f5f5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; color: #999; flex-shrink: 0;
+}
+
+.info { flex: 1; min-width: 0; }
+.infoTop {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+}
+
+.badge {
+  font-family: var(--font-heading);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+  padding: 2px 9px; border: var(--border);
+}
+.badgeLost     { background: #fdecea; color: #c62828; }
+.badgeFound    { background: #e8f5e9; color: #2e7d32; }
+.badgeResolved { background: #f5f5f5; color: #757575; }
+
+.itemName {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--black);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 2px;
+  display: block;
+  width: fit-content;
+}
+.itemName:hover { text-decoration: underline; }
+
+.itemMeta { font-size: 0.8rem; color: #555; margin: 0; }
+.posterEmail { font-weight: 600; color: var(--black); }
+.time { font-size: 0.75rem; color: #999; font-weight: 600; }
+
+.actions { display: flex; align-items: center; gap: 8px; }
+
+.viewBtn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  border: var(--border);
+  background: var(--white);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.viewBtn:hover { background: var(--bg); }
+
+.deleteBtn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  border: var(--border);
+  background: #fdecea;
+  color: #c62828;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.deleteBtn:hover { background: #c62828; color: #fff; }
+
+.confirmWrap {
+  display: flex; align-items: center; gap: 4px;
+}
+.confirmText { font-family: var(--font-heading); font-weight: 800; font-size: 0.75rem; color: #c62828; }
+.confirmYes {
+  border: 1.5px solid #c62828; background: #c62828; color: #fff;
+  font-size: 0.65rem; font-weight: 800; padding: 2px 6px; cursor: pointer;
+}
+.confirmNo {
+  border: 1.5px solid #1a1a1a; background: #fff; color: #1a1a1a;
+  font-size: 0.65rem; font-weight: 800; padding: 2px 6px; cursor: pointer;
+}
+
+.loadingWrap { display: flex; flex-direction: column; gap: 10px; }
+.skeletonRow { height: 104px; background: #eee; border: var(--border); }
+
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+.shimmer {
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@media (max-width: 600px) {
+  .statsRow { grid-template-columns: 1fr; }
+  .row { flex-direction: column; align-items: flex-start; }
+  .thumb, .thumbPlaceholder { width: 100%; height: 140px; }
+  .actions { width: 100%; border-top: 1.5px dashed #ddd; padding-top: 10px; margin-top: 4px; }
+}
