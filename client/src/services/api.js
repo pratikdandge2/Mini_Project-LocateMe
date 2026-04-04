@@ -171,3 +171,25 @@ export const fetchAnalytics = async () => {
   return res.json();
 };
 
+// Fetch all items for the admin panel
+export const fetchAdminItems = async (filters = {}) => {
+  const token = await getToken();
+  const params = new URLSearchParams(filters).toString();
+  const res = await fetch(
+    `${BASE_URL}/api/items/admin-all${params ? `?${params}` : ""}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.json();
+};
+
+// Admin force-delete any item (uses the same DELETE /:id route,
+// which now allows admin in addition to the owner)
+export const adminDeleteItem = async (id) => {
+  const token = await getToken();
+  const res = await fetch(`${BASE_URL}/api/items/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};
+

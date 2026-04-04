@@ -3,6 +3,7 @@ import Item from "../models/Item.js";
 import Comment from "../models/Comment.js";
 import Notification from "../models/Notification.js";
 import { verifyToken } from "../middleware/verifyToken.js";
+import { isAdmin } from "../middleware/isAdmin.js";
 import { io } from "../server.js";
 
 const router = express.Router();
@@ -110,6 +111,22 @@ router.get('/mine', verifyToken, async (req, res) => {
   res.json(items);
 });
 
+// GET /api/items/admin-all — all items for admin panel (newest first, no pagination)
+// Protected: verifyToken + isAdmin
+router.get("/admin-all", verifyToken, isAdmin, async (req, res) => {
+  const { type, resolved } = req.query;
+  const filter = {};
+  if (type === "lost" || type === "found") filter.type = type;
+  if (resolved === "true")  filter.resolved = true;
+  if (resolved === "false") filter.resolved = false;
+
+  const items = await Item.find(filter)
+    .sort({ createdAt: -1 })
+    .select("name type location resolved postedBy imageUrl createdAt");
+
+  res.json(items);
+});
+
 // GET single item
 router.get("/:id", async (req, res) => {
   const item = await Item.findById(req.params.id);
@@ -147,13 +164,25 @@ router.patch("/:id/resolve", verifyToken, async (req, res) => {
   res.json(item);
 });
 
-// DELETE item (owner only)
+// DELETE item — allowed for: item owner OR admin
 router.delete("/:id", verifyToken, async (req, res) => {
   const item = await Item.findById(req.params.id);
   if (!item) return res.status(404).json({ error: "Not found" });
-  if (item.postedBy.uid !== req.user.uid)
-    return res.status(403).json({ error: "Not authorized" });
+
+  const isOwner = item.postedBy.uid === req.user.uid;
+  const isAdminUser =
+    req.user.email?.trim().toLowerCase() ===
+    process.env.ADMIN_EMAIL?.trim().toLowerCase();
+
+  if (!isOwner && !isAdminUser) {
+    return res.status(403).json({ error: "Not authorized." });
+  }
+
   await item.deleteOne();
+
+  // Also delete all comments for this item to keep the DB clean
+  await Comment.deleteMany({ itemId: item._id });
+
   res.json({ message: "Deleted" });
 });
 
