@@ -63,6 +63,22 @@
 
 .myReportsBtn:hover {
   background: var(--bg);
+  transform: translateY(-1.5px);
+}
+
+.adminNavBtn {
+  composes: myReportsBtn;
+  color: var(--black);
+  border-color: var(--black);
+  background: var(--bg-section);
+}
+.adminNavBtn:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.myReportsBtn:hover {
+  background: var(--bg);
   transform: translateY(-1px);
   box-shadow: 2px 2px 0 var(--black);
 }

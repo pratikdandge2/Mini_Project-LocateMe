@@ -16,7 +16,7 @@ function MapPinIcon() {
 
 export default function Navbar({ onPostItem }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout, loginWithGoogle } = useAuth();
+  const { user, logout, loginWithGoogle, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileRef = useRef(null);
@@ -83,6 +83,16 @@ export default function Navbar({ onPostItem }) {
             >
               📊 STATS
             </Link>
+
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className={styles.adminNavBtn}
+                onClick={() => setMenuOpen(false)}
+              >
+                🛡️ ADMIN
+              </Link>
+            )}
 
             <div className={styles.userChip} ref={profileRef}>
               <div
