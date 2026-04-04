@@ -74,6 +74,18 @@
   border: var(--border);
   background: var(--white);
   flex-shrink: 0;
+  position: relative;
+}
+
+.profileTrigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profileTrigger:hover {
+  background: #f8f9fa;
 }
 
 .avatar {
@@ -106,11 +118,65 @@
   font-size: 0.85rem;
   letter-spacing: 0.04em;
   color: var(--black);
-  padding: 0 10px 0 8px;
+  padding: 0 2px 0 8px;
   max-width: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  padding-right: 14px;
+  margin-left: 4px;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+
+.chevronUp {
+  transform: rotate(180deg);
+  transform-origin: center;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 140px;
+  background: var(--white);
+  border: var(--border);
+  box-shadow: 4px 4px 0 var(--black);
+  z-index: 1000;
+  padding: 4px;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--black);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.dropdownItem:hover {
+  background: var(--bg);
+  color: var(--orange);
 }
 
 .bellWrap {
@@ -126,23 +192,7 @@
   height: 34px;
 }
 
-.logoutBtn {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  padding: 4px 2px;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.12s;
-  white-space: nowrap;
-}
-
-.logoutBtn:hover { color: var(--black); }
+/* .logoutBtn removed as it is now .dropdownItem */
 
 .ctaBtn {
   padding: 8px 16px;
@@ -230,10 +280,21 @@
     max-width: none;
   }
 
-  .logoutBtn {
-    text-align: center;
-    padding: 8px 0;
-    font-size: 0.85rem;
+  .profileDropdown {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    border-top: 1px dashed #ddd;
+    margin-top: 4px;
+    animation: none;
+    background: #fafafa;
+  }
+
+  .dropdownItem {
+    padding: 12px;
+    font-size: 0.9rem;
+    justify-content: center;
   }
 
   .ctaBtn {
