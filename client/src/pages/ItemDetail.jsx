@@ -6,8 +6,10 @@ import {
   fetchItem,
   resolveItem,
   deleteItem,
+  invalidateFeedCache,
 } from "../services/api";
 import { formatDistanceToNow } from "../utils/date";
+import { cloudinaryOptimize } from "../utils/cloudinary";
 import Navbar from "../components/Navbar";
 import CommentSection from "../components/CommentSection";
 import Lightbox from "../components/Lightbox";
@@ -37,6 +39,7 @@ export default function ItemDetail() {
     setActioning(true);
     try {
       const updated = await resolveItem(item._id);
+      invalidateFeedCache();
       setItem(updated);
       addToast(updated.resolved ? '✅ Item marked as resolved!' : '↩ Item marked as active.', 'success');
     } finally {
@@ -50,6 +53,7 @@ export default function ItemDetail() {
     setActioning(true);
     try {
       await deleteItem(item._id);
+      invalidateFeedCache();
       navigate("/");
       addToast('🗑 Item deleted.', 'info');
     } finally {
@@ -109,8 +113,8 @@ export default function ItemDetail() {
           <div className={styles.imageWrap}>
             {item.imageUrl ? (
               <img
-                src={item.imageUrl}
-                alt=""
+                src={cloudinaryOptimize(item.imageUrl, { width: 900, quality: "auto" })}
+                alt={item.name}
                 className={styles.image}
                 onClick={() => item.imageUrl && setLightbox(true)}
                 style={{ cursor: item.imageUrl ? 'zoom-in' : 'default' }}

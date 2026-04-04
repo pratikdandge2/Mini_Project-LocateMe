@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Feed from "../components/Feed";
 import ReportModal from "../components/ReportModal";
 import ItemsDrawer from "../components/ItemsDrawer";
+import { invalidateFeedCache } from "../services/api";
 import FloatingShapes from "../components/FloatingShapes";
 import styles from "./Home.module.css";
 
@@ -73,6 +74,7 @@ export default function Home() {
   const openReport = (type) => setReportModal(type);
   const closeReport = () => setReportModal(null);
   const onReportSuccess = useCallback(() => {
+    invalidateFeedCache();
     setRefreshTrigger((t) => t + 1);
   }, []);
 

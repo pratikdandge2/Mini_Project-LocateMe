@@ -2,6 +2,29 @@ import { auth } from "./firebase";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+// Simple in-memory cache: key → { data, expiresAt }
+const cache = new Map();
+
+function withCache(key, ttlMs, fetcher) {
+  const cached = cache.get(key);
+  if (cached && Date.now() < cached.expiresAt) {
+    return Promise.resolve(cached.data);
+  }
+  return fetcher().then((data) => {
+    cache.set(key, { data, expiresAt: Date.now() + ttlMs });
+    return data;
+  });
+}
+
+/**
+ * Call this when a new item is posted, resolved or deleted
+ */
+export function invalidateFeedCache() {
+  for (const key of cache.keys()) {
+    if (key.startsWith("feed:")) cache.delete(key);
+  }
+}
+
 export const uploadImageToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -23,25 +46,30 @@ export const fetchItems = async (type = "", page = 1) => {
   return Array.isArray(data) ? data : data.items || [];
 };
 
-export const fetchItemsPaged = async ({
-  type = "",
-  page = 1,
-  limit = 12,
-  search = "",
-  location = "all",
-  sort = "newest",
-} = {}) => {
-  const params = new URLSearchParams();
-  if (type) params.set("type", type);
-  params.set("page", String(page));
-  params.set("limit", String(limit));
-  params.set("location", location || "all");
-  params.set("sort", sort || "newest");
-  if (search) params.set("search", search);
-  params.set("includeMeta", "true");
+export const fetchItemsPaged = async (params = {}) => {
+  const cacheKey = `feed:${JSON.stringify(params)}`;
+  return withCache(cacheKey, 60_000, async () => {
+    const {
+      type = "",
+      page = 1,
+      limit = 12,
+      search = "",
+      location = "all",
+      sort = "newest",
+    } = params;
 
-  const res = await fetch(`${BASE_URL}/api/items?${params.toString()}`);
-  return res.json();
+    const queryParams = new URLSearchParams();
+    if (type) queryParams.set("type", type);
+    queryParams.set("page", String(page));
+    queryParams.set("limit", String(limit));
+    queryParams.set("location", location || "all");
+    queryParams.set("sort", sort || "newest");
+    if (search) queryParams.set("search", search);
+    queryParams.set("includeMeta", "true");
+
+    const res = await fetch(`${BASE_URL}/api/items?${queryParams.toString()}`);
+    return res.json();
+  });
 };
 
 export const fetchItem = async (id) => {

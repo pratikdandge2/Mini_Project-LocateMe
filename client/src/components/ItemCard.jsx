@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "../utils/date";
+import { cloudinaryOptimize } from "../utils/cloudinary";
 import styles from "./ItemCard.module.css";
 
 export default function ItemCard({ item }) {
@@ -16,7 +17,12 @@ export default function ItemCard({ item }) {
     <Link to={`/item/${item._id}`} className={styles.card}>
       <div className={styles.imageWrap}>
         {item.imageUrl ? (
-          <img src={item.imageUrl} alt="" className={styles.image} />
+          <img
+            src={cloudinaryOptimize(item.imageUrl, { width: 440, quality: "auto" })}
+            alt={item.name}
+            className={styles.image}
+            loading="lazy"
+          />
         ) : (
           <div className={styles.imagePlaceholder}>No image</div>
         )}

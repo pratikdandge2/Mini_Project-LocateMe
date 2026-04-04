@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchItemsPaged } from "../services/api";
 import { formatDistanceToNow } from "../utils/date";
+import { cloudinaryOptimize } from "../utils/cloudinary";
 import "./ItemsDrawer.css";
 
 const LOCATION_OPTIONS = [
@@ -183,9 +184,10 @@ export default function ItemsDrawer({ open, onClose }) {
                 <div className="drawer-item-imgWrap">
                   {item.imageUrl ? (
                     <img
-                      src={item.imageUrl}
-                      alt=""
+                      src={cloudinaryOptimize(item.imageUrl, { width: 220, quality: "auto" })}
+                      alt={item.name}
                       className="drawer-item-img"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="drawer-item-imgPlaceholder">No image</div>
